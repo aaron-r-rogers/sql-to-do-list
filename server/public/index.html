@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vendors/jquery.js" charset="utf-8"></script>
+    <script src="scripts/client.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="styles/style.css">
     <title>SQL To-Do List</title>
 </head>
 <body>
@@ -12,12 +15,28 @@
     </header>
     <form id="addTask">
         <h2>Add a Task</h2>
-        <input type="text" id="name" value="" placeholder="Name">
+        <input type="text" id="title" value="" placeholder="Title">
         <label for="details">Details:</label>
         <textarea id="details" name="details" rows="4" cols="50"></textarea>
         <label for="deadline">Deadline:</label>
         <input type="date" id="deadline" name="deadline"></input>
         <button type="button" id="addButton">Add Task</button>
     </form>
+    <section>
+        <h2>Task List</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Details</th>
+                <th>Deadline</th>
+                <th>Complete</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="viewKoalas">
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>
