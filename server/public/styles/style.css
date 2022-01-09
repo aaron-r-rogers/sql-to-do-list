@@ -27,3 +27,11 @@ h1 {
     border-radius: 5px;
     padding: 20px;
 }
+
+#searchFilter {
+    margin-bottom: 20px;
+    background-image: url("https://img.icons8.com/ios-filled/50/000000/search--v1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: calc(100% - 8px)  center;
+}

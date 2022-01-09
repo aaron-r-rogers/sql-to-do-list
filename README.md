@@ -1,6 +1,10 @@
-# Project Name
+# To-Do List App
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+Duration: 3 day sprint
+
+A common project when learning a new language, I built a simple app that creates and tracks a to-do list.  This the first app I have made that combines CRUD in its entirety, uses a RESTful architecture, and implements responsive design.
+
+To see the fully functional site
 
 ## Description
 
