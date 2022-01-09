@@ -8,7 +8,7 @@ A common project when learning a new language, I built a simple app that creates
 
 ## Screenshot
 
-![App in use:](/server/public/images/screenshot.png)
+![App in use:](https://github.com/aaron-r-rogers/weekend-sql-to-do-list/blob/master/server/public/images/screenshot.png)
 
 ### Prerequisites
 
