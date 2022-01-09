@@ -36,6 +36,7 @@
     </form>
     <div class="container task-list" id="table-container">
         <h2 class="display-5">Task List</h2>
+        <input type="text" id="searchFilter" class="form-control" onkeyup="searchOnKeyUp()" maxlength="30" placeholder="Search for tasks by title..."></input>
         <table class="container table table-bordered table-striped table-responsive{-sm|-md|-lg|-xl}">
             <thead class="table-dark">
             <tr>

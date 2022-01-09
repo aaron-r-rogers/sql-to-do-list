@@ -10,10 +10,8 @@ $(document).ready(function() {
 	getTasks();
 }); // end doc ready
 
-// TODO
-
-// getTasks function should GET data
-// then it should call a render function
+// getTasks function GETs data from db
+// then calls renderTasks function
 function getTasks() {
 	// ajax call to server to get tasks
 	$.ajax({
@@ -29,8 +27,7 @@ function getTasks() {
 		});
 } // end getTasks
 
-// render function should append data to DOM
-// don't forget to empty
+// empties then appends data to DOM
 function renderTasks(tasks) {
 	console.log('tasks are:', tasks);
 	$('#viewTasks').empty();
@@ -56,10 +53,10 @@ function renderTasks(tasks) {
         </tr>
         `);
 	}
-}
+} // end renderTasks function
 
-// click listener on add button should call add function
-// add function should grab from DOM and POST new data
+// click listener on add button calls addTask function
+// grabs values from DOM and POSTs new data
 function addTask() {
 	let newTask = {
 		title: $('#title').val(),
@@ -84,10 +81,10 @@ function addTask() {
 				alert('Unable to add task at this time. Please try again later.');
 			});
 	}
-}
+} // end addTask function
 
-// click listener on delete button should call delete function
-// delete function should DELETE corresponding task
+// click listener on delete button calls deleteTask
+// deletes corresponding task and confirms w/ user
 function deleteTask() {
 	console.log('in deleteTask');
 	Swal.fire({
@@ -114,12 +111,14 @@ function deleteTask() {
 			Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
 		}
 	});
-}
+} // end deleteTask function
 
+// flips SQL bit on click
 function toggleComplete() {
-	let id = $(this).parents('tr').data('id');
-	let title = $(this).parents('tr').data('title');
-	let isComplete = $(this).parents('tr').data('complete');
+	let id, title, isComplete;
+	id = $(this).parents('tr').data('id');
+	title = $(this).parents('tr').data('title');
+	isComplete = $(this).parents('tr').data('complete');
 	completeAlert(title, isComplete);
 	$.ajax({
 		method: 'PUT',
@@ -137,7 +136,7 @@ function toggleComplete() {
 		.catch((err) => {
 			console.log('PUT failed', err);
 		});
-}
+} // end toggleComplete function
 
 // alerts user of changing completion
 function completeAlert(title, isComplete) {
@@ -147,11 +146,31 @@ function completeAlert(title, isComplete) {
 	if (isComplete === 1) {
 		Swal.fire('Life can only be understood backwards; but it must be lived forwards');
 	}
-}
+} // end completeAlert function
 
+// clears inputs in form and returns cursor to title
 function clearForm() {
 	$('#title').val('');
 	$('#details').val('');
 	$('#deadline').val('');
 	$('#title').focus();
-}
+} // end clearForm function
+
+function searchOnKeyUp() {
+	var filter, tr, td, txtValue;
+	filter = $('#searchFilter').val().toUpperCase();
+	tr = $('tr');
+
+	// loop through all rows, hide non-matches
+	for (let i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName('td')[0];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = '';
+			} else {
+				tr[i].style.display = 'none';
+			}
+		}
+	}
+} // end searchOnKeyUp function
