@@ -3,9 +3,9 @@ $(document).ready(function() {
 	// click listener for addTask POST
 	$('#addButton').on('click', addTask);
 	// click listener for inline DELETE
-    $(document).on('click', '.deleteButton', deleteTask)
+	$(document).on('click', '.deleteButton', deleteTask);
 	//click listener to toggle complete
-	$(document).on('click', '.incomplete', toggleComplete)
+	$(document).on('click', '.incomplete', toggleComplete);
 	// load existing tasks on page load
 	getTasks();
 }); // end doc ready
@@ -43,10 +43,15 @@ function renderTasks(tasks) {
         <td>${task.title}</td>
         <td>${task.description}</td>
         <td>${deadline}</td>
-        <td class="incomplete btn btn-primary w-100">
-		${task.complete === '1' ? 'Yes' : 'No'}</td>
+        <td class="incomplete">
+			<button class = "btn btn-success w-100">
+			${task.complete === '1' ? 'Yes' : 'No'}
+			</button>
+		</td>
         <td>
-            <button class = "deleteButton btn btn-danger">DELETE</button>
+            <button class = "deleteButton btn btn-danger">
+				DELETE
+			</button>
         </td>
         </tr>
         `);
@@ -61,31 +66,30 @@ function addTask() {
 		description: $('#details').val(),
 		deadline: $('#deadline').val()
 	};
-	if (!newTask.title ||
-		!newTask.deadline) {
-			return Swal.fire('Your task has to have a title and deadline to continue');
-		} else {
-	$.ajax({
-		type: 'POST',
-		url: '/tasks',
-		data: newTask
-	})
-		.then(function(response) {
-			console.log('Response from server:', response);
-			clearForm();
-			getTasks();
+	if (!newTask.title || !newTask.deadline) {
+		return Swal.fire('Your task has to have a title and deadline to continue');
+	} else {
+		$.ajax({
+			type: 'POST',
+			url: '/tasks',
+			data: newTask
 		})
-		.catch(function(error) {
-			console.log('Error in POST', error);
-			alert('Unable to add task at this time. Please try again later.');
-		});
+			.then(function(response) {
+				console.log('Response from server:', response);
+				clearForm();
+				getTasks();
+			})
+			.catch(function(error) {
+				console.log('Error in POST', error);
+				alert('Unable to add task at this time. Please try again later.');
+			});
 	}
 }
 
 // click listener on delete button should call delete function
 // delete function should DELETE corresponding task
 function deleteTask() {
-    console.log('in deleteTask');
+	console.log('in deleteTask');
 	Swal.fire({
 		title: 'Are you sure?',
 		text: "You won't be able to revert this!",
@@ -99,10 +103,12 @@ function deleteTask() {
 			$.ajax({
 				type: 'DELETE',
 				url: `/tasks/${$(this).parents('tr').data('id')}`
-			}).then((res) => {
+			})
+				.then((res) => {
 					console.log('DELETE:', res);
 					getTasks();
-			}).catch((err) => {
+				})
+				.catch((err) => {
 					console.log('FAILED:', err);
 				});
 			Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
@@ -110,10 +116,10 @@ function deleteTask() {
 	});
 }
 
-function toggleComplete () {
+function toggleComplete() {
 	let id = $(this).parents('tr').data('id');
-	let title = $(this).parents('tr').data('title')
-	let isComplete = $(this).parents('tr').data('complete')
+	let title = $(this).parents('tr').data('title');
+	let isComplete = $(this).parents('tr').data('complete');
 	completeAlert(title, isComplete);
 	$.ajax({
 		method: 'PUT',
@@ -123,27 +129,27 @@ function toggleComplete () {
 			complete: isComplete
 		}
 	})
-	.then(() => {
-		console.log('PUT success!');
-		// reload our state from the server
-		getTasks();
-	})
-	.catch((err) => {
-		console.log('PUT failed', err);
-	
-	})
+		.then(() => {
+			console.log('PUT success!');
+			// reload our state from the server
+			getTasks();
+		})
+		.catch((err) => {
+			console.log('PUT failed', err);
+		});
 }
 
 // alerts user of changing completion
-function completeAlert (title, isComplete) {
+function completeAlert(title, isComplete) {
 	if (isComplete === 0) {
-	Swal.fire(`Great job completing: ${title}`)
-	} if (isComplete === 1) {
-		Swal.fire('Life can only be understood backwards; but it must be lived forwards');	
+		Swal.fire(`Great job completing: ${title}`);
+	}
+	if (isComplete === 1) {
+		Swal.fire('Life can only be understood backwards; but it must be lived forwards');
 	}
 }
 
-function clearForm () {
+function clearForm() {
 	$('#title').val('');
 	$('#details').val('');
 	$('#deadline').val('');

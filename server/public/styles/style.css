@@ -16,6 +16,7 @@ h1 {
 }
 
 .incomplete {
+    background-color: green;
     color: black;
     margin: 4px 2px;
 }
