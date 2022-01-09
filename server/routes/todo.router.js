@@ -76,7 +76,8 @@ toDoRouter.put('/:id', (req, res) => {
 	// Grab the URL parameter
 	let queryText = `
     UPDATE "tasks"
-    SET "complete" = $1
+    SET "complete" = $1,
+		"completed_at" = DEFAULT
     WHERE "id" = $2;
     `;
 	// checks bit and flips to toggle complete
