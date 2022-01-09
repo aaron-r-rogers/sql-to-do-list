@@ -3,9 +3,9 @@ CREATE TABLE "tasks" (
     "title" varchar(60) not null,
     "description" varchar(255),
     "deadline" date,
-    "complete" bit
+    "complete" bit DEFAULT '0'
 );
 INSERT INTO "tasks" 
 	("id", "title", "description", "deadline", "complete") 
 VALUES
-    (DEFAULT, 'Something', 'going to do some stuff', '2022-02-01', '0');
+    (DEFAULT, 'Something', 'going to do some stuff', '2022-02-01', DEFAULT);

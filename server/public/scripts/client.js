@@ -45,7 +45,7 @@ function renderTasks(tasks) {
         <td>${deadline}</td>
         <td class="incomplete">
 			<button class = "btn btn-success w-100">
-			${task.complete === '1' ? 'Yes' : 'No'}
+			${task.complete === '1' ? moment(task.completed_at).calendar() : 'No'}
 			</button>
 		</td>
         <td>
