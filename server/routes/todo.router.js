@@ -16,7 +16,10 @@ const pool = new pg.Pool({
 // results.rows is all data (array of objects)
 // GET all tasks
 toDoRouter.get('/', (req, res) => {
-	let queryText = 'SELECT * FROM "tasks" ORDER BY "deadline" ASC;';
+	let queryText = `SELECT * FROM "tasks" 
+					ORDER BY 
+						"complete" ASC,
+						"deadline" ASC;`;
 	pool
 		.query(queryText)
 		.then((result) => {
@@ -65,5 +68,28 @@ toDoRouter.delete('/:id', (req, res) => {
         console.log('DELETE failed:', err);
     })
 });
+
+toDoRouter.put('/:id', (req, res) => {
+    // Grab the URL parameter
+    let queryText = `
+    UPDATE "tasks"
+    SET "complete" = $1
+    WHERE "id" = $2;
+    `;
+	// checks bit and flips to toggle complete
+    let queryParams = [
+        req.body.complete === '0' ? '1' : '0',  // $1
+        req.params.id        					// $2
+    ];
+
+    pool.query(queryText, queryParams)
+    .then(() =>{
+        res.sendStatus(204);
+    })
+    .catch((err) => {
+        console.log('PUT /tasks failed!', err);
+        res.sendStatus(500);
+    });
+})
 
 module.exports = toDoRouter;

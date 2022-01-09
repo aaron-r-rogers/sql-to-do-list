@@ -1,0 +1,28 @@
+body {
+    background-image: url("https://cdn.pixabay.com/photo/2018/02/15/14/37/leaf-3155438_1280.jpg");
+    background-size: cover;
+    background-repeat: repeat-y;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+#addTask {
+    padding: 20px;
+}
+
+.incomplete {
+    color: black;
+    margin: 4px 2px;
+}
+
+#table-container {
+    background-color: white;
+    margin-top: 30px;
+    border-radius: 5px;
+    padding: 20px;
+}

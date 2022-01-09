@@ -1,8 +1,11 @@
 $(document).ready(function() {
 	console.log('ready now');
-	// Establish click listeners
+	// click listener for addTask POST
 	$('#addButton').on('click', addTask);
+	// click listener for inline DELETE
     $(document).on('click', '.deleteButton', deleteTask)
+	//click listener to toggle complete
+	$(document).on('click', '.incomplete', toggleComplete)
 	// load existing tasks on page load
 	getTasks();
 }); // end doc ready
@@ -32,14 +35,18 @@ function renderTasks(tasks) {
 	console.log('tasks are:', tasks);
 	$('#viewTasks').empty();
 	for (let task of tasks) {
+		let deadline = moment(task.deadline).calendar();
 		$('#viewTasks').append(`
-        <tr data-id = "${task.id}">
+        <tr data-id = "${task.id}" 
+			data-title = "${task.title}"
+			data-complete = "${task.complete}">
         <td>${task.title}</td>
         <td>${task.description}</td>
-        <td>${task.deadline}</td>
-        <td>${task.complete === '1' ? 'Yes' : 'No'}</td>
+        <td>${deadline}</td>
+        <td class="incomplete btn btn-primary w-100">
+		${task.complete === '1' ? 'Yes' : 'No'}</td>
         <td>
-            <button class = "deleteButton">DELETE</button>
+            <button class = "deleteButton btn btn-danger">DELETE</button>
         </td>
         </tr>
         `);
@@ -54,6 +61,10 @@ function addTask() {
 		description: $('#details').val(),
 		deadline: $('#deadline').val()
 	};
+	if (!newTask.title ||
+		!newTask.deadline) {
+			return Swal.fire('Your task has to have a title and deadline to continue');
+		} else {
 	$.ajax({
 		type: 'POST',
 		url: '/tasks',
@@ -61,12 +72,14 @@ function addTask() {
 	})
 		.then(function(response) {
 			console.log('Response from server:', response);
+			clearForm();
 			getTasks();
 		})
 		.catch(function(error) {
 			console.log('Error in POST', error);
 			alert('Unable to add task at this time. Please try again later.');
 		});
+	}
 }
 
 // click listener on delete button should call delete function
@@ -95,4 +108,44 @@ function deleteTask() {
 			Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
 		}
 	});
+}
+
+function toggleComplete () {
+	let id = $(this).parents('tr').data('id');
+	let title = $(this).parents('tr').data('title')
+	let isComplete = $(this).parents('tr').data('complete')
+	completeAlert(title, isComplete);
+	$.ajax({
+		method: 'PUT',
+		// id in req.params
+		url: `/tasks/${id}`,
+		data: {
+			complete: isComplete
+		}
+	})
+	.then(() => {
+		console.log('PUT success!');
+		// reload our state from the server
+		getTasks();
+	})
+	.catch((err) => {
+		console.log('PUT failed', err);
+	
+	})
+}
+
+// alerts user of changing completion
+function completeAlert (title, isComplete) {
+	if (isComplete === 0) {
+	Swal.fire(`Great job completing: ${title}`)
+	} if (isComplete === 1) {
+		Swal.fire('Life can only be understood backwards; but it must be lived forwards');	
+	}
+}
+
+function clearForm () {
+	$('#title').val('');
+	$('#details').val('');
+	$('#deadline').val('');
+	$('#title').focus();
 }
