@@ -45,7 +45,7 @@ toDoRouter.post('/', (req, res) => {
 	let queryText = `INSERT INTO "tasks" ("title", "description", "deadline")
                     VALUES ($1, $2, $3);`;
 	pool
-		.query(queryText, [newTask.title, newTask.description, newTask.deadline])
+		.query(queryText, [ newTask.title, newTask.description, newTask.deadline ])
 		.then((result) => {
 			res.sendStatus(201);
 		})
@@ -59,37 +59,41 @@ toDoRouter.post('/', (req, res) => {
 // use /:id to tag row to DELETE from db
 // DELETE
 toDoRouter.delete('/:id', (req, res) => {
-    console.log(req.params)
-    const queryText = `DELETE FROM tasks WHERE id = $1 `;
-    let queryParams = [req.params.id];
-    pool.query(queryText, queryParams).then((dbRes) => {
-        res.sendStatus(204);
-    }).catch((err) => {
-        console.log('DELETE failed:', err);
-    })
+	console.log(req.params);
+	const queryText = `DELETE FROM tasks WHERE id = $1 `;
+	let queryParams = [ req.params.id ];
+	pool
+		.query(queryText, queryParams)
+		.then((dbRes) => {
+			res.sendStatus(204);
+		})
+		.catch((err) => {
+			console.log('DELETE failed:', err);
+		});
 });
 
 toDoRouter.put('/:id', (req, res) => {
-    // Grab the URL parameter
-    let queryText = `
+	// Grab the URL parameter
+	let queryText = `
     UPDATE "tasks"
     SET "complete" = $1
     WHERE "id" = $2;
     `;
 	// checks bit and flips to toggle complete
-    let queryParams = [
-        req.body.complete === '0' ? '1' : '0',  // $1
-        req.params.id        					// $2
-    ];
+	let queryParams = [
+		req.body.complete === '0' ? '1' : '0', // $1
+		req.params.id // $2
+	];
 
-    pool.query(queryText, queryParams)
-    .then(() =>{
-        res.sendStatus(204);
-    })
-    .catch((err) => {
-        console.log('PUT /tasks failed!', err);
-        res.sendStatus(500);
-    });
-})
+	pool
+		.query(queryText, queryParams)
+		.then(() => {
+			res.sendStatus(204);
+		})
+		.catch((err) => {
+			console.log('PUT /tasks failed!', err);
+			res.sendStatus(500);
+		});
+});
 
 module.exports = toDoRouter;
