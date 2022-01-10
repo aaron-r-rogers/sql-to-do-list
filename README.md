@@ -42,4 +42,4 @@ HTML, CSS, and JavaScript, with help from JQuery, Bootstrap, PostgreSQL, SweetAl
 Thanks to [Prime Digital Academy](www.primeacademy.io), especially Edan and the Woodall Cohort, who equipped and helped me to make this application a reality.
 
 ## Support
-If you have suggestions or issues, please email me at [rogers.aaron.r@mail.com](www.google.com)
+If you have suggestions or issues, please email me at [rogers.aaron.r@mail.com](mailto:rogers.aaron.r@gmail.com)
