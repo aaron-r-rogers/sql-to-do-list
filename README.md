@@ -21,7 +21,7 @@ A common project when learning a new language, I built a simple app that creates
 2. The queries in the `tables.sql` file are set up to create all the tables and populate the data for the app to run properly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. Postico is recommended to run those queries as that was used to create the queries
 3. Open up your editor of choice and run an `npm install`
 4. Run `npm run server` in your terminal
-5. Run `npm run client` in your terminal to open the app in a new browser tab
+5. Open your browser and navigate to localhost:5000 to interact with the app
 
 ## Usage
 How does someone use this application? Tell a user story here.
