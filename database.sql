@@ -3,7 +3,8 @@ CREATE TABLE "tasks" (
     "title" varchar(60) not null,
     "description" varchar(255),
     "deadline" date,
-    "complete" bit DEFAULT '0'
+    "complete" bit DEFAULT '0',
+    "completed_at" TIMESTAMP not null DEFAULT now()
 );
 INSERT INTO "tasks" 
 	("id", "title", "description", "deadline", "complete") 
