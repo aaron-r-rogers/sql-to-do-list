@@ -24,7 +24,6 @@ A common project when learning a new language, I built a simple app that creates
 5. Open your browser and navigate to localhost:5000 to interact with the app
 
 ## Usage
-How does someone use this application? Tell a user story here.
 
 1. To add a task, enter the information requested in the inputs.  Task and Deadline are required fields, and there are alerts when either of those fields is missing.  Details are optional.
 2. Then click the add task button
