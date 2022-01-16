@@ -8,7 +8,7 @@ A common project when learning a new language, I built a simple app that creates
 
 ## Screenshot
 
-![App in use:](https://github.com/aaron-r-rogers/weekend-sql-to-do-list/blob/master/server/public/images/screenshot.png)
+![App in use:](https://github.com/aaron-r-rogers/weekend-sql-to-do-list/blob/master/server/public/images/TodoDemo.gif)
 
 ### Prerequisites
 
@@ -19,8 +19,8 @@ A common project when learning a new language, I built a simple app that creates
 
 1. Create a database named `weekend-to-do-app`
 2. The queries in the `tables.sql` file are set up to create all the tables and populate the data for the app to run properly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. Postico is recommended to run those queries as that was used to create the queries
-3. Open up your editor of choice and run an `npm install`
-4. Run `npm run server` in your terminal
+3. Open up your editor of choice (I like vscode) and run an `npm install`
+4. Run `npm start` in your terminal
 5. Run `npm run client` in your terminal to open the app in a new browser tab
 
 ## Usage
